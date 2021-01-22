@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block main_content %}
+<h2>Todo List</h2>
+<div>
+    <form method="POST" action="/todo/add">
+        {% csrf_token %}
+        <input type="text" name="task_name" />
+        <input type="submit" value="add" /> 
+    </form>
+</div>
+<div>
+    <ul>
+        {% for task_item in task_list %}
+        <li class="todo_item">{{ task_item.task}} <form method="POST" action="/todo/remove/{{ task_item.id }}">
+            {% csrf_token %}
+            <input type="submit" value="done" />
+        </form></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
